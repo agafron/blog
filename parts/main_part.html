@@ -1,0 +1,35 @@
+<div class="main">  <!-- ng-controller="mainCtrl as vm" -->
+  <img src="img/header.jpg" class="img-rounded" alt="header" style="text-align: center; border: 13px solid lightgreen;">
+  
+      <div class="pull-right" ng-if="!vm.back" style="margin-right: 15px;">
+       <button class="btn btn-success" ng-click="vm.back = !vm.back">Politic</button>
+       <button class="btn btn-success" ng-click="vm.back = !vm.back">Sport</button>
+       <button class="btn btn-success" ng-click="vm.back = !vm.back">Traveling</button>
+       <button class="btn btn-success" ng-click="vm.back = !vm.back">Health</button>
+       <button class="btn btn-success" ng-click="vm.back = !vm.back">Animals</button>
+       <button class="btn btn-success" ng-click="vm.back = !vm.back">Other</button>
+      </div>
+
+      <br><br>
+
+
+  <form class="bg-warning img-rounded" ng-click="vm.open(item)" ng-repeat="item in vm.list" ng-if="!vm.back" style="border: 2px solid lightblue; margin: 13.5px">
+        <div>
+          <h1>
+          <img src="{{item.img}}" class="img-rounded" alt="{{index}}"> <a href="#" id="{{item.id}}"> {{item.name}} </a>
+          </h1>
+            <button ng-click="vm.open(item)" type="button" class="btn btn-link">Read more...</button>
+        </div>
+  </form>
+    
+  
+  <form class="bg-success img-rounded" ng-if="vm.back"  style="border: 2px solid lightblue">
+    <h2 id="{{vm.current.id}}">
+            <img src="{{vm.current.img}}" class="img-rounded" alt="{{index}}">{{vm.current.name}}
+    </h2>
+        <div style="border: 2px solid lightblue; margin-right: 3px; margin-left: 3px;">
+            {{vm.current.text}}
+        </div>
+        <button ng-click="vm.backs()" class="btn btn-warning">Back</button>
+  </form>
+  </div>

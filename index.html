@@ -1,0 +1,354 @@
+<!doctype html>
+<html> <!--подключаем ng-app-->
+  <head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <!-- <script src="../node_modules/@uirouter/angularjs/release/angular-ui-router.min.js"></script> -->
+    <!-- <script src="../node_modules/angular-moment/angular-moment.min.js"></script> -->
+    <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->
+    <script src="router.js"></script>
+    <!-- <script src="ctrls/mainCtrl.js"></script>
+    <script src="ctrls/commentCtrl.js"></script>
+    <script src="ctrls/loginCtrl.js"></script>
+    <script src="directives/directive.js"></script> -->
+    <!-- <script src="functions/timeFunction.js"></script> -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- <script src="template.js"></script> -->
+<style>
+  .main {
+    /*width: 50%;*/
+    margin: 10 auto;
+    }
+
+  .odd {
+    background-color: #fafafa;
+  }
+  .even {
+    background-color: silver;
+  }
+  .
+  </style>
+  </head>
+  <body  ng-app="myApp" ng-controller="mainCtrl as vm">
+  <div class="container-fluid">
+   <div class="row padded">
+    <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+    {{2+3}}
+
+    
+    </div>
+    <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
+  <!-- <main-dir></main-dir> -->
+  <div class="main">
+  <img src="img/header.jpg" class="img-rounded" alt="header" style="text-align: center; border: 13px solid lightgreen;">
+  <h1>Блог от том как написать блог</h1>
+      <!-- <div class="pull-right" ng-if="!vm.back" style="margin-right: 15px;">
+       <button class="btn btn-success" ng-click="vm.back = !vm.back">Politic</button>
+       <button class="btn btn-success" ng-click="vm.back = !vm.back">Sport</button>
+       <button class="btn btn-success" ng-click="vm.back = !vm.back">Traveling</button>
+       <button class="btn btn-success" ng-click="vm.back = !vm.back">Health</button>
+       <button class="btn btn-success" ng-click="vm.back = !vm.back">Animals</button>
+       <button class="btn btn-success" ng-click="vm.back = !vm.back">Other</button>
+      </div> -->
+
+      <br><br>
+
+
+  <form class="bg-warning img-rounded" ng-click="vm.open(item)" ng-repeat="item in vm.list" ng-if="!vm.back" style="border: 2px solid lightblue; margin: 13.5px">
+        <div>
+          <h2>
+          <img src="{{item.img}}" class="img-rounded" alt="{{index}}"> <a ui-sref="list.detail" id="{{item.id}}"> {{item.name}} </a>
+          </h2>
+          <a style="display: block;" ui-sref="list.detail">{{item.name}}</a>
+          
+
+            <button ng-click="vm.open(item)" type="button" class="btn btn-link">Read more...</button>
+            <div style="text-align: right;">{{item.date}}</div>
+        </div>
+  </form>
+    
+  
+  <form class="bg-success img-rounded" ng-if="vm.back"  style="border: 2px solid lightblue">
+    <h2 id="{{vm.current.id}}">
+            <img src="{{vm.current.img}}" class="img-rounded" alt="{{index}}">{{vm.current.name}}
+    </h2>
+        <div style="border: 2px solid lightblue; margin-right: 3px; margin-left: 3px;">
+            {{vm.current.text}}
+        </div>
+        <button ng-click="vm.backs()" class="btn btn-warning">Back</button>
+  </form>
+  
+  </div>
+<!-- comments -->
+<!-- <comment-dir ng-show="vm.back"></comment-dir> -->
+<div>
+<form class="bg-success img-rounded" 
+ ng-if="vm.back"  style="border: 2px solid lightblue; margin-top: 10px"  
+ ng-controller="commentCtrl as commentVm"  
+ ng-submit="commentVm.addComment()">
+
+<div>
+<p>Комментарии:</p>
+<div>
+<div ng-repeat="item in commentVm.comments"  class="bg-success img-rounded" style="border: 2px solid yellow; margin-top: 10px">
+  <div>автор: {{item.nameCommentator}}</div>
+  <div>текст: {{item.description}}</div>
+  <div title="{{ item.date | date: 'dd/MM/yyyy, HH:mm:ss' }}">дата: {{item.date | date:'dd/MM/yyyy'}}, время: {{item.time | date: 'HH:mm:ss'}}</div>
+</div>
+
+<div>Оставить новый комментарий</div>
+  <textarea name="comment"
+            cols="40" rows="3" 
+            class="img-rounded" 
+            ng-model="commentVm.newComment.description"></textarea>
+  <p>Подпись:</p>
+  <input    type="text" 
+            name="comment" 
+            ng-model="commentVm.newComment.nameCommentator">
+  <p><button type="submit" class="btn btn-warning">Добавить</button><input type="reset" value="Очистить"></p>
+</div> 
+</div>
+</form>
+</div>
+
+    
+    </div>
+
+    <!-- Registration -->
+    <div ng-controller="loginCtrl as loginVm" class="col-lg-2 col-md-3 col-sm-12 col-xs-12 form-inline lead">
+    <!-- <login-dir></login-dir> -->
+    <p ng-if="vm.ent" style="text-align: center">Вы зарегистривованы? <br>Тогда </p>
+  <div style="text-align: center"><button ng-if="vm.ent" ng-click="vm.registration()" type="button" class="btn btn-link">
+      Войдите
+    </button></div>
+    <p ng-if="!vm.ent" style="text-align: center">Вы еще не зарегистривованы?</p>
+    <div style="text-align: center"><button  ng-if="!vm.ent" ng-click="vm.registration()" type="button" class="btn btn-link" style="text-align: center">
+    Зарегистрируйтесь
+    </button></div>
+
+    <form ng-if="!vm.ent" 
+          value="enter" 
+          style="border: 2px solid lightblue; text-align: center; margin-top: 10px;" 
+          class="img-rounded"
+          ng-submit="loginVm.addUser()">
+    <fieldset>
+  <legend>Вход на сайт</legend>
+  <div class="form-group">
+   <label for="inputLogin">Логин</label><br>
+   <input ng-model="loginVm.newUser.login" 
+          id="inputLogin" 
+          placeholder="Введите логин" 
+          class="form-control"><br>
+  </div>
+  <div class="form-group">
+   <label for="inputPassword">Пароль</label><br>
+   <input ng-model="loginVm.newUser.password"
+          type="password" 
+          id="inputPassword" 
+          placeholder="Введите пароль" 
+          class="form-control"><br>
+  </div>
+  <div class="checkbox">
+   <label><input type="checkbox"> Запомнить меня</label>
+  </div>
+  <div><button type="submit" class="btn btn-default">Войти</button></div>
+ </fieldset>
+    </form>
+    
+
+    <form ng-if="vm.ent" 
+    value="registration" 
+    style="border: 2px solid lightblue; text-align: center; margin-top: 10px;" 
+    class="img-rounded"
+    ng-submit="loginVm.addUser()">
+    <fieldset>
+  <legend>Регистрация</legend>
+  <div class="form-group">
+   <label for="inputName">Имя</label><br>
+   <input ng-model="loginVm.newUser.name" 
+          id="inputName" 
+          placeholder="Введите имя" 
+          class="form-control">
+  </div>
+  <div class="form-group">
+   <label for="inputLastName">Фамилия</label><br>
+   <input ng-model="loginVm.newUser.lastName"
+          id="inputLastName" 
+          placeholder="Введите фамилию" 
+          class="form-control">
+  </div>
+  <div class="form-group">
+   <label for="inputLogin">Логин</label><br>
+   <input ng-model="loginVm.newUser.login"
+          id="inputLogin" 
+          placeholder="Введите логин" 
+          class="form-control">
+  </div>
+  <div class="form-group">
+   <label for="inputEmail">E-mail</label><br>
+   <input ng-model="loginVm.newUser.email"
+          id="inputEmail" 
+          placeholder="Введите E-mail" 
+          class="form-control">
+  </div>
+  <div class="form-group">
+   <label for="inputPassword">Пароль</label><br>
+   <input ng-model="loginVm.newUser.password"
+   type="password" id="inputPassword" placeholder="Введите пароль" class="form-control">
+  </div>
+  <div class="form-group">
+   <label for="inputPassword">Повторите пароль</label><br>
+   <input ng-model="loginVm.newUser.confirmPassword"
+   type="password" id="inputPassword" placeholder="Введите пароль еще разок" class="form-control">
+  </div>
+  <div class="checkbox">
+   <label><input type="checkbox"> Запомнить меня</label>
+  </div>
+  <div><button type="submit" class="btn btn-default">Войти</button></div>
+ </fieldset>
+    </form>
+  
+
+    </div>
+   </div>
+  </div>
+<script>
+	var app = angular.module('myApp', []);
+     app.controller('mainCtrl', function () {
+       this.open = function(item) {
+            console.log("open");
+            //console.log(item);
+            this.current = item;
+            this.back = true;
+          };
+            this.backs = function() {
+            this.back = false;
+            console.log('back');
+          };
+            
+          
+      this.list = [     
+          // {
+          //   name: "Вред алкоголя и его влияние на организм человека", 
+          //   text: "Текст про Вред алкоголя и его влияние на организм человека",
+          //   img: "img/1.jpg",
+          //   id: "1"
+          // },       
+          // {
+          //   name: "Трансгуманизм", 
+          //   text: "Текст про Трансгуманизм",
+          //   img: "img/2.jpg",
+          //   id: "2"
+          // },     
+          // {
+          //   name: "За качеством ремонта дорог в Украине будут следить международные эксперты, за брак накажут – Мининфраструктуры", 
+          //   text: "Текст про За качеством ремонта дорог в Украине будут следить международные эксперты, за брак накажут – Мининфраструктуры",
+          //   img: "img/3.jpg",
+          //   id: "3"
+          // },
+          {
+            name: "Как написать блог",
+            text: "Текст о том Как написать блог",
+            img: "img/4.jpg",
+            id: "4",
+            date: "03.09.2017"
+          }
+
+          ];
+     });
+     app.controller('commentCtrl', function () {
+        this.date = new Date();
+        this.comments = [{
+         nameCommentator: "anonimous",
+         date: "25/08/2017", //"dateNow.toString()",
+         time: "23:15:46", //"timeNow.toString()",
+         description: "комменнтарий"}
+      ];
+        
+        this.resetComment = function() {
+        this.newComment = {
+        nameCommentator: "anonymous",
+        date: Date.now(),
+        time: Date.now(),
+        description: null
+    }
+//     console.log("reset");
+//     console.log(this.comments);
+   }
+   this.resetComment();
+
+
+    this.addComment = function() { 
+     var adds =  Object.assign({}, this.newComment);
+             this.comments.push(adds);
+             //console.log(dateTimeSet());
+    //this.comments.push(this.newComment);
+    // this.dateNow.toString().push(this.newComment);
+    // this.timeNow.toString().push(this.newComment);
+    this.resetComment();
+  //console.log("add");
+  //console.log(this.comments);
+  console.log(this.newComment);
+}
+    // });
+    
+     //  .directive('firstDir', function () {
+     //  return {
+     //    scope: {
+     //      name: '='
+     //    },
+              
+     //    template: 
+     //    ""
+     //  }
+      });
+          app.controller('loginCtrl', function () {
+        //this.date = new Date();
+        this.registration = function(value) {
+              this.value = value;
+              this.ent = !this.ent;
+              console.log('regchange');
+              //this.reg = true;
+            }
+        this.user = [];
+        
+        this.resetLogin = function() {
+        this.newUser = {
+         name: "",
+         lastName: "",
+         login: "",
+         email: "",
+         password: "",
+         confirmPassword: ""
+         }
+//     console.log("reset");
+//     console.log(this.comments);
+   }
+   this.resetLogin();
+
+
+    this.addUser = function() { 
+     var adds =  Object.assign({}, this.newUser);
+             this.user.push(adds);
+             //console.log(dateTimeSet());
+    //this.comments.push(this.newComment);
+    // this.dateNow.toString().push(this.newComment);
+    // this.timeNow.toString().push(this.newComment);
+    this.resetLogin();
+  //console.log("add");
+  //console.log(this.comments);
+  console.log(this.user);
+}
+// this.registration = function(value) {
+//               this.value = value;
+//               this.ent = !this.ent;
+//               //this.reg = true;
+//             }
+ });
+</script>
+  
+  </body>
+ </html>
+

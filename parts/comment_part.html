@@ -1,0 +1,27 @@
+<form class="bg-success img-rounded" 
+ style="border: 2px solid lightblue; margin-top: 10px"  
+ ng-controller="commentCtrl as commentVm"  
+ ng-submit="commentVm.addComment()">
+
+<div>
+<p>Комментарии:</p>
+<div>
+<div ng-repeat="item in commentVm.comments"  class="bg-success img-rounded" style="border: 2px solid yellow; margin-top: 10px">
+  <div>автор: {{item.nameCommentator}}</div>
+  <div>текст: {{item.description}}</div>
+  <div title="{{ item.date | date: 'dd/MM/yyyy, HH:mm:ss' }}">дата: {{item.date | date:'dd/MM/yyyy'}}, время: {{item.time | date: 'HH:mm:ss'}}</div>
+</div>
+
+<div>Оставить новый комментарий</div>
+  <textarea name="comment"
+            cols="40" rows="3" 
+            class="img-rounded" 
+            ng-model="commentVm.newComment.description"></textarea>
+  <p>Подпись:</p>
+  <input    type="text" 
+            name="comment" 
+            ng-model="commentVm.newComment.nameCommentator">
+  <p><button type="submit" class="btn btn-warning">Добавить</button><input type="reset" value="Очистить"></p>
+</div> <!-- ng-click="commentVm.addComment()" -->
+</div>
+</form>
